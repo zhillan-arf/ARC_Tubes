@@ -29,9 +29,6 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json())
 
 app.use(express.static("public"))
-app.use(express.urlencoded({
-    extended: false
-}))
 
 app.get("/", (req, res) => {
     res.render("hello.ejs")

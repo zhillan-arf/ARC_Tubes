@@ -35,8 +35,8 @@ app.get("/", (req, res) => {
 })
 
 db.sequelize.sync({ force: true }).then(() => {
-    console.log("Drop and re-sync db.");
-});
+    console.log("Drop and re-sync db.")
+})
 
 
 app.listen(port, () => {

@@ -80,3 +80,6 @@ exports.addTodo = (req, res) => {
 exports.update = async(req, res) => {
 
 }
+
+//todo implement authorization dengan JWT
+

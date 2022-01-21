@@ -12,12 +12,6 @@ const corsOpt = {
     origin: "http://localhost:3000"
 }
 
-app.use(express.json())
-app.use(express.urlencoded({
-    extended: true
-}))
-app.use(cors(corsOpt))
-app.use(routes)
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({
@@ -26,6 +20,10 @@ app.use(bodyParser.urlencoded({
 
 // parse application/json
 app.use(bodyParser.json())
+
+app.use(cors(corsOpt))
+app.use(routes)
+
 
 app.use(express.static("public"))
 

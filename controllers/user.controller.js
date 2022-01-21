@@ -39,9 +39,17 @@ exports.login = (req, res) => {
         }
     }).then(data => {
         // todo implement authentication dengan benar
-        return res.status(200).send({
-            msg: `User ${username} berhasil login`
-        })
+        if(data === null) {
+            return res.status(500).send({
+                msg: `User ${username} doesn't exist`
+            })
+        }
+        else {
+            return res.status(200).send({
+                msg: `User ${username} berhasil login`
+            })
+        }
+
     }).catch(err => {
         return res.status(500).send({
             msg: err || "Internal server error"

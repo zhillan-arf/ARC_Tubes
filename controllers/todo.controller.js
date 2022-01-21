@@ -33,9 +33,17 @@ exports.deleteTodo = (req, res) => {
     const query = { id: id }
     Todos.destroy({ where: query })
         .then(data => {
-            res.status(200).send({
-                msg: `todo dengan id ${id} berhasil dihapus`
-            })
+            if(data === 0) {
+                return res.status(500).send({
+                    msg: `todo dengan id ${id} tidak ada di database`
+                })
+            }
+            else {
+                return res.status(200).send({
+                    msg: `todo dengan id ${id} berhasil dihapus`
+                })
+            }
+
         })
         .catch(err => {
             return res.status(500).send({
@@ -73,13 +81,13 @@ exports.addTodo = (req, res) => {
 /**
  * Update todo, berdasarkan ID
  * note: Hanya akan diimplementasikan apabila front end ata fitur update todo
- * @param req
- * @param res
+ * @param _
+ * @param __
  * @returns {Promise<void>}
  */
-exports.update = async(req, res) => {
+exports.update = async(_, __) => {
 
 }
 
-//todo implement authorization dengan JWT
+// todo implement authorization dengan JWT
 

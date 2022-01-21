@@ -1,7 +1,7 @@
-const { DataTypes, Sequelize } = require('sequelize')
+const { DataTypes } = require('sequelize')
 
 module.exports = (sequelize) => {
-    const Todos = sequelize.define('todos', {
+    return sequelize.define('todos', {
         id: {
             allowNull: false,
             autoIncrement: true,
@@ -18,5 +18,4 @@ module.exports = (sequelize) => {
             type: 'TIMESTAMP'
         }
     })
-    return Todos
 }

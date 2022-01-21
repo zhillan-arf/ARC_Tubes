@@ -1,12 +1,11 @@
+require("dotenv").config() // load all environment variables first
 const express = require("express")
 const bodyParser = require("body-parser")
 const cors = require("cors")
 const routes = require("./routes")
 const db = require("./models")
-require("dotenv").config()
 
 const app = express()
-
 const port = 3000
 
 const corsOpt = {

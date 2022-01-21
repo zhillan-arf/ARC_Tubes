@@ -46,15 +46,16 @@ exports.deleteTodo = (req, res) => {
 
 /**
  * Menambahkan todo dengan nama todo (hal yang ingin dilakukan) ada di body request
- *
+ * Gunakan MySQL Date Time untuk due_date, contoh: 2022-06-29 17:54:04
  * @param req
  * @param res
  */
 exports.addTodo = (req, res) => {
-    const name = req.body.name
+    const nama_tugas = req.body.nama_tugas
+    const nama_matkul = req.body.nama_matkul
+    const due_date = req.body.due_date
 
-    console.log("nama: " + name)
-    Todos.create({ name })
+    Todos.create({ nama_tugas, nama_matkul, due_date })
         .then(data => {
             return res.status(200).send({
                 data: data,

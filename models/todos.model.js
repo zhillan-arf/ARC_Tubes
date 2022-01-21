@@ -8,9 +8,15 @@ module.exports = (sequelize) => {
             primaryKey: true,
             type: DataTypes.INTEGER
         },
-        name: {
+        nama_tugas: {
             type: DataTypes.STRING(255)
         },
+        nama_matkul: {
+            type: DataTypes.STRING(255)
+        },
+        due_date: {
+            type: 'TIMESTAMP'
+        }
     })
     return Todos
 }

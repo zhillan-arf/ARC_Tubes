@@ -1,0 +1,10 @@
+untuk todo, contoh data yang dihasilkan:
+        "id": 3,
+        "name": "ts",
+        "updatedAt": "2022-01-21T08:24:19.556Z",
+        "createdAt": "2022-01-21T08:24:19.556Z"
+
+contoh post request:
+{
+    "name": "ts"
+}

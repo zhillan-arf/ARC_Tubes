@@ -1,9 +1,19 @@
+const jwt = require('jsonwebtoken')
+const passport = require('passport')
+
 const User = require('../models').user
 
 exports.register = async (req, res) => {
     const name = req.body.name
     const username = req.body.username
     const password = req.body.password
+
+    if(!name || !username || !password) {
+        return res.status(400).send({
+            msg: "Please fill all data"
+        })
+    }
+
     const user = {
         name,
         username,
@@ -19,9 +29,7 @@ exports.register = async (req, res) => {
             })
         }
         User.create(user)
-        return res.status(200).send({
-            msg: "User created successfully"
-        })
+        return res.redirect(200, '/login')
     } catch(err) {
         return res.status(500).send({
             msg: "Error while insert data"
@@ -30,30 +38,22 @@ exports.register = async (req, res) => {
 }
 
 exports.login = (req, res) => {
-    const username = req.body.username
-    const password = req.body.password
-    User.findOne({
-        where: {
-            username,
-            password
-        }
-    }).then(data => {
-        // todo implement authentication dengan benar
-        if(data === null) {
-            return res.status(500).send({
-                msg: `User ${username} doesn't exist`
-            })
-        }
-        else {
-            return res.status(200).send({
-                msg: `User ${username} berhasil login`
-            })
-        }
+    passport.authenticate('local', {session: false}, (err, user, info) => {
 
-    }).catch(err => {
-        return res.status(500).send({
-            msg: err || "Internal server error"
+        if(err || !user) {
+            return res.status(400).json({
+                msg: info.message || "Something is wrong",
+            })
+        }
+        req.login(user, {session: false}, (err) => {
+            if(err) {
+                return res.send(err)
+            }
+
+            const token = jwt.sign(user.toJSON(), process.env.JWT_SECRET, {expiresIn: '20m'})
+            return res.status(200).send({token})
         })
-    })
+    })(req, res)
+
 }
 

@@ -44,6 +44,9 @@ app.get('/login', (req, res) => {
 app.get('/register', (req, res) => {
     res.render('example_register.ejs')
 })
+app.get('/tugas', (req, res) => {
+    res.render('example_todo.ejs')
+})
 
 db.sequelize.sync({ force: true }).then(() => {
     console.log("Drop and re-sync db.")

@@ -8,49 +8,12 @@
     <title>Document</title>
 </head>
 <body>
-    <form action="" id="form">
+    <form action="/api/register" id="form" method="POST">
         <input type="text" name="name" id="name">
         <input type="text" name="username" id="username">
         <input type="password" name="password" id="password">
         <button type="submit"></button>
     </form>
-    <script>
-        const postRegister = (name, username, password) => {
-            const url = "http://localhost:3000/api/register"
 
-            const xhr = new XMLHttpRequest()
-            xhr.open('POST', url, true)
-            xhr.onload = () => {
-                const response = xhr.responseText
-                if(response === "OK. Redirecting to /login") {
-                    // redirect to login page
-                    // the rest of this function will not be executed
-                    location.href = 'http://localhost:3000/login'
-                }
-                const res = JSON.parse(xhr.responseText)
-                if (xhr.status >= 200 && xhr.status < 300) {
-                    const token = res.token
-                    document.cookie = `token=${token};httpOnly;`
-                } else {
-                    alert("Pls fill correctly")
-                }
-            }
-            xhr.setRequestHeader("Content-Type", "application/json")
-            const payload = {
-                name, username, password
-            }
-            xhr.send(JSON.stringify(payload))
-        }
-        const formHandler = (event) => {
-            event.preventDefault()
-            const name = document.querySelector('#name').value
-            const username = document.querySelector('#username').value
-            const password = document.querySelector('#password').value
-
-            postRegister(name, username, password)
-        }
-        const form = document.querySelector('#form')
-        form.addEventListener('submit', formHandler)
-    </script>
 </body>
 </html>

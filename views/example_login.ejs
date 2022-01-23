@@ -8,54 +8,10 @@
     <title>Document</title>
 </head>
 <body>
-    <form action="" id="form" method="POST">
+    <form action="/api/login" id="form" method="POST">
         <input type="text" name="username" id="username">
         <input type="password" name="password" id="password">
         <button type="submit">Masukkan</button>
     </form>
-    <script>
-        const postLogin = (username, password) => {
-            const url = "http://localhost:3000/api/login"
-
-            const xhr = new XMLHttpRequest()
-            xhr.open("POST", url, true)
-            xhr.onload = () => {
-                const res = JSON.parse(xhr.responseText)
-                if (xhr.status >= 200 && xhr.status < 300) {
-                    const token = res.token
-                    document.cookie = `token=${token};httpOnly;`
-                } else {
-                    alert("Wrong username or password")
-                }
-            }
-            xhr.setRequestHeader("Content-Type", "application/json")
-
-            const payload = {
-                username, password
-            }
-            xhr.send(JSON.stringify(payload))
-        }
-        const formHandler = (event) => {
-            event.preventDefault()
-            const username = document.querySelector('#username')
-            const password = document.querySelector('#password')
-            postLogin(username.value,  password.value)
-            username.value = ''
-            password.value = ''
-            // .then(data => console.log(data)).catch(err => console.log(err))
-            // const url = '127.0.0.1' + ':' + location.port
-            // const options = {
-            //     method: 'POST',
-            //     headers: {
-            //         'Content-Type': 'application/json'
-            //     },
-            //     body: {username: username.value, password: password.value}
-            // }
-            // fetch('', options).then(res => console.log(res.json())).catch(err => console.log(err))
-
-        }
-        const form = document.querySelector('#form')
-        form.addEventListener('submit', formHandler)
-    </script>
 </body>
 </html>

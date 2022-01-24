@@ -51,7 +51,7 @@ exports.login = (req, res) => {
             }
 
             const token = jwt.sign(user.toJSON(), process.env.JWT_SECRET, {expiresIn: '20m'})
-            res.cookie('token', token, {httpOnly: true})
+            res.cookie('token', token)
             res.redirect('/tugas')
         })
     })(req, res)

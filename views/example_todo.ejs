@@ -9,11 +9,60 @@
 <body>
     <img src="images/dummy_logo.png" alt="dummy logo">
     <form action="" id="form">
-        <input type="text" name="nama_tugas">
-        <input type="text" name="nama_matkul">
-        <input type="date" name="due_date">
+        <input type="text" name="nama_tugas" id="nama_tugas">
+        <input type="text" name="nama_matkul" id="nama_matkul">
+        <input type="date" name="due_date" id="due_date">
         <button type="Submit">Tambah Tugas</button>
     </form>
-    <!--Todo: Integrate with backend api-->
+
+    <script>
+        function getCookie(name) {
+            const value = `; ${document.cookie}`;
+            const parts = value.split(`; ${name}=`);
+            if (parts.length === 2) return parts.pop().split(';').shift();
+        }
+
+        const formHandler = (event) => {
+            event.preventDefault()
+            const nama_tugas = document.querySelector('#nama_tugas')
+            const nama_matkul = document.querySelector('#nama_matkul')
+            const due_date = document.querySelector('#due_date')
+            const payload = {
+                nama_tugas: nama_tugas.value,
+                nama_matkul: nama_matkul.value,
+                due_date: due_date.value
+            }
+
+            const target_url = "http://localhost:3000/api/addTodo"
+            const header = new Headers({
+                'Content-Type': 'application/json',
+            })
+
+            fetch(target_url, {
+                method: 'POST',
+                headers: header,
+                body: JSON.stringify(payload)
+            })
+            .then(data => data.json()).then(data => console.log(data)).catch(err => {alert('fail');alert(err)})
+
+            // setelah nambahin tugas, ambil semua data, lalu kita bisa append data terakhir (dengan id paling tinggi)
+            const getAll_url = "http://localhost:3000/api/getAll"
+            fetch(getAll_url, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            })
+            .then(data => data.json()).then(data => console.log(data))
+            .catch(err => alert(err))
+            nama_matkul.value = ''
+            nama_tugas.value = ''
+            due_date.value = ''
+        }
+
+        const form = document.querySelector('#form')
+        form.addEventListener('submit', formHandler)
+    </script>
+
 </body>
 </html>

@@ -19,6 +19,7 @@ exports.getAll = (req, res) => {
                 msg: err || "Gagal mencari todo"
             })
         })
+
 }
 
 /**
@@ -65,9 +66,9 @@ exports.addTodo = (req, res) => {
 
     Todos.create({ nama_tugas, nama_matkul, due_date })
         .then(data => {
+
             return res.status(200).send({
                 data: data,
-                mg: this.name,
                 msg: "Berhasil menambahkan todo"
             })
         })

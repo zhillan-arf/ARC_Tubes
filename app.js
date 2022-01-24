@@ -26,7 +26,7 @@ app.use(require('express-session')({
     resave: false,
     saveUninitialized: true,
     secret: process.env.SECRET_KEY
-}));
+}))
 
 app.use(cors(corsOpt))
 app.use(routes)

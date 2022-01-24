@@ -13,12 +13,12 @@ const {
 require('../passport')
 
 // user must be logged in first before using the api
-router.get('/api/getAll', passport.authenticate('jwt', {session: false}), getAll)
-router.delete('/api/delete', passport.authenticate('jwt', {session: false}), deleteTodo)
-router.post('/api/addTodo', passport.authenticate('jwt', {session: false}), addTodo)
-router.put('/api/update', passport.authenticate('jwt', {session: false}), update)
+router.get('/api/getAll', getAll)
+router.delete('/api/delete', deleteTodo)
+router.post('/api/addTodo', addTodo)
+router.put('/api/update', update)
 
-router.post('/api/register', register)
-router.post('/api/login', login)
+router.post('/register', register)
+router.post('/login', login)
 
 module.exports = router

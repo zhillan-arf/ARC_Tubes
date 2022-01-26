@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            font-family: sans-serif;
+            margin: 0%;
+            padding: 0%;
+        }
+
+        .container {
+            width: 100vw;
+            height: 100vh;
+            background-color: rgb(149, 223, 248);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .card {
+            width: 30%;
+            height: 50%;
+            background-color: white;
+            outline: solid;
+            outline-color: rgb(19, 87, 151);
+            border-radius: 16px;
+        }
+        
+        header {
+            margin: 15px 0;
+        }
+        
+        h1 {
+            text-align: center;
+        }
+
+        .register-form {
+            list-style: none;
+            margin-top: 5%;
+            width: 100%;
+            display: flex;
+            text-align: center;
+            flex-direction: column;
+        }
+
+        .input-form {
+            width: 60%;
+            margin-top: 15px;
+            margin-left: 20%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .btn-submit:disabled {
+            /*background-color: red;
+            color: darkred;*/
+            margin-top: 15%;
+            padding: 5px 8px;
+            opacity: 60%;
+            border-radius: 16px;
+        }
+
+        .btn-submit:enabled {
+            margin-top: 15%;
+            padding: 5px 8px;
+            border-radius: 16px;
+        }
+    
+        span {
+            text-align: left;
+            color: red;
+        }
+
+        .input-desc {
+            text-align: right;
+            margin-bottom: 3px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <header>
+                <h1>Register Form</h1>
+            </header>
+
+            <form action="/register" id="form" method="POST">
+                <ul class="register-form">
+                    <li>
+                        <div class="input-form">
+                            <p class="input-desc"><span>*</span>Nama Lengkap</p>
+                            <input type="text" name="name" id="name">
+                        </div>
+                    </li>
+                    <li>
+                        <div class="input-form">
+                            <p class="input-desc"><span>*</span>Username</p>
+                            <input type="text" name="username" id="username">
+                        </div>
+                    </li>
+                    <li>
+                        <div class="input-form">
+                            <p class="input-desc"><span>*</span>Password</p>
+                            <input type="password" name="password" id="password">
+                        </div>
+                    </li>
+                    <li>
+                        <div class="input-form">
+                            <button type="submit" class="btn-submit" disabled>Register</button>
+                        </div>
+                    </li>
+                </ul>     
+            </form>
+        </div>
+    </div>
+    
+    <script>
+        const inputNama = document.querySelector("#name")
+        const inputUser = document.querySelector("#username")
+        const inputPass = document.querySelector("#password")
+        const submitButton = document.querySelector(".btn-submit")
+
+        inputNama.addEventListener('input', isFormEmpty)
+        inputUser.addEventListener('input', isFormEmpty)
+        inputPass.addEventListener('input', isFormEmpty)
+
+        function isFormEmpty() {
+            if (inputNama.value !== '' && inputUser.value !== '' && inputPass.value !== '') {
+                submitButton.disabled = false
+            } else {
+                submitButton.disabled = true
+            }
+        }
+    </script>
+
+</body>
+</html>

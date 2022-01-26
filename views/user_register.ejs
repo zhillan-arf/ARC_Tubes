@@ -130,7 +130,7 @@
         inputPass.addEventListener('input', isFormEmpty)
 
         function isFormEmpty() {
-            if (inputNama.value !== '' && inputUser.value !== '' && inputPass.value !== '') {
+            if (inputNama.value.trim() && inputUser.value.trim() && inputPass.value.trim()) {
                 submitButton.disabled = false
             } else {
                 submitButton.disabled = true

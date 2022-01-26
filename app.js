@@ -1,9 +1,9 @@
-require("dotenv").config() // load all environment variables first
-const express = require("express")
-const bodyParser = require("body-parser")
-const cors = require("cors")
-const routes = require("./routes")
-const db = require("./models")
+require('dotenv').config() // load all environment variables first
+const express = require('express')
+const bodyParser = require('body-parser')
+const cors = require('cors')
+const routes = require('./routes')
+const db = require('./models')
 const passport = require('passport')
 
 const app = express()
@@ -33,10 +33,10 @@ app.use(routes)
 app.use(passport.initialize())
 app.use(passport.session())
 
-app.use(express.static("public"))
+app.use(express.static('public'))
 
-app.get("/", (req, res) => {
-    res.render("landing_page.ejs")
+app.get('/', (req, res) => {
+    res.render('landing_page.ejs')
 })
 app.get('/login', (req, res) => {
     res.render('example_login.ejs')

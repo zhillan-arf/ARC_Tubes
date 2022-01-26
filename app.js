@@ -36,7 +36,7 @@ app.use(passport.session())
 app.use(express.static("public"))
 
 app.get("/", (req, res) => {
-    res.render("hello.ejs")
+    res.render("landing_page.ejs")
 })
 app.get('/login', (req, res) => {
     res.render('example_login.ejs')

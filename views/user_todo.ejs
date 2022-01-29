@@ -6,14 +6,190 @@
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <title>To Do List</title>
         <link rel="icon" href="/images/dummy_logo.png">
-        <style></style>
+        <style>
+
+        </style>
     </head>
     <body>
         <header>
-
+            <h1 class="header-logo">To Do List</h1>
         </header>
         <div class="container">
-            
+            <div class="navbar">
+                <form class="search-form" autocomplete="on">
+                    <input class="search-input" type="text" placeholder="Search To Do">
+                    <button class="search-button" type="submit">Search</button>
+                    <button class="clear-button" type="reset">Clear</button>
+                </form>
+                <form class="sort-form">
+                    <label for="sort-select">Sort By</label>
+                    <select class="sort-select" id="sort-select">
+                        <option value="normal"> -- </option>
+                        <option value="nama_tugas_asc">Nama Tugas (Ascending)</option>
+                        <option value="nama_tugas_desc">Nama Tugas (Descending)</option>
+                        <option value="nama_matkul_asc">Nama Mata Kuliah (Ascending)</option>
+                        <option value="nama_matkul_desc">Nama Mata Kuliah (Descending)</option>
+                        <option value="due_date_asc">Due Date (Ascending)</option>
+                        <option value="due_date_desc">Due Date (Descending)</option>
+                    </select>
+                </form>
+            </div>
+            <div class="addbar">
+                <form class="add-form">
+                    <input type="text" class="nama_tugas" name="nama_tugas" id="nama_tugas" placeholder="Nama Tugas">
+                    <input type="text" class="nama_matkul" name="nama_matkul" id="nama_matkul" placeholder="Nama Mata Kuliah">
+                    <input type="date" class="due_date" name="due_date" id="due_date">
+                    <input type="time" class="due_time" name="due_time" id="due_time">
+                    <button type="Submit">Tambah Tugas</button>
+                </form>
+            </div>
+            <div class="table">
+                <ul class="to-do-list">
+                </ul>
+            </div>
         </div>
+
+        <script>
+
+            function getCookie(name) {
+                const value = `; ${document.cookie}`;
+                const parts = value.split(`; ${name}=`);
+                if (parts.length === 2) return parts.pop().split(';').shift();
+            }
+    
+            const addFormHandler = (event) => {
+                event.preventDefault()
+
+                const nama_tugas = document.querySelector('.nama_tugas')
+                const nama_matkul = document.querySelector('.nama_matkul')
+                const due_date = document.querySelector('.due_date')
+                const due_time = document.querySelector('.due_time')
+
+                const payload = {
+                    nama_tugas: nama_tugas.value,
+                    nama_matkul: nama_matkul.value,
+                    due_date: due_date.value + ' ' + due_time.value
+                }
+    
+                const target_url = "http://localhost:3000/api/addTodo"
+                const header = new Headers({
+                    'Content-Type': 'application/json',
+                })
+    
+                fetch(target_url, {
+                    method: 'POST',
+                    headers: header,
+                    body: JSON.stringify(payload)
+                })
+                .then(data => data.json()).then(data => displayData(data.data)).catch(err => {alert('fail');alert(err)})
+
+                nama_matkul.value = ''
+                nama_tugas.value = ''
+                due_date.value = ''
+            }
+
+            const displayToDoList = (current_data) => {
+                const to_do_list = document.querySelector('.to-do-list')
+
+                current_data.forEach((to_do) => {
+                    const to_do_element = document.createElement('li')
+                    to_do_element.id = to_do.id
+
+                    const to_do_div = document.createElement('div')
+                    to_do_div.classList.add('to-do-list')
+
+                    const to_do_nama_tugas = document.createElement('p')
+                    to_do_nama_tugas.classList.add('to-do-nama-tugas')
+                    to_do_nama_tugas.textContent = to_do.nama_tugas
+                    to_do_div.appendChild(to_do_nama_tugas)
+
+                    const to_do_nama_matkul = document.createElement('p')
+                    to_do_nama_matkul.classList.add('to-do-nama-matkul')
+                    to_do_nama_matkul.textContent = to_do.nama_matkul
+                    to_do_div.appendChild(to_do_nama_matkul)
+
+                    const to_do_due_date = document.createElement('p')
+                    to_do_due_date.classList.add('to-do-due-date')
+                    to_do_due_date.textContent = to_do.due_date
+                    to_do_div.appendChild(to_do_due_date)
+
+                    const to_do_edit_button = document.createElement('button')
+                    to_do_edit_button.classList.add('to-do-edit-button')
+                    to_do_edit_button.textContent = 'Edit'
+                    to_do_div.appendChild(to_do_edit_button)
+
+                    const to_do_delete_button = document.createElement('button')
+                    to_do_delete_button.classList.add('to-do-delete-button')
+                    to_do_delete_button.textContent = 'Delete'
+                    to_do_div.appendChild(to_do_delete_button)
+
+                    to_do_element.appendChild(to_do_div)
+
+                    to_do_list.appendChild(to_do_element)
+                })
+            }
+
+            const displayData = (to_do) => {
+                console.log(to_do)
+
+                const to_do_list = document.querySelector('.to-do-list')
+
+                const to_do_element = document.createElement('li')
+                to_do_element.id = to_do.id
+
+                const to_do_div = document.createElement('div')
+                to_do_div.classList.add('to-do-list')
+
+                const to_do_nama_tugas = document.createElement('p')
+                to_do_nama_tugas.classList.add('to-do-nama-tugas')
+                to_do_nama_tugas.textContent = to_do.nama_tugas
+                to_do_div.appendChild(to_do_nama_tugas)
+
+                const to_do_nama_matkul = document.createElement('p')
+                to_do_nama_matkul.classList.add('to-do-nama-matkul')
+                to_do_nama_matkul.textContent = to_do.nama_matkul
+                to_do_div.appendChild(to_do_nama_matkul)
+
+                const to_do_due_date = document.createElement('p')
+                to_do_due_date.classList.add('to-do-due-date')
+                to_do_due_date.textContent = to_do.due_date
+                to_do_div.appendChild(to_do_due_date)
+
+                const to_do_edit_button = document.createElement('button')
+                to_do_edit_button.classList.add('to-do-edit-button')
+                to_do_edit_button.textContent = 'Edit'
+                to_do_div.appendChild(to_do_edit_button)
+
+                const to_do_delete_button = document.createElement('button')
+                to_do_delete_button.classList.add('to-do-delete-button')
+                to_do_delete_button.textContent = 'Delete'
+                to_do_div.appendChild(to_do_delete_button)
+
+                to_do_element.appendChild(to_do_div)
+
+                to_do_list.appendChild(to_do_element)
+            }
+
+            const fetchData = () => {
+                const getAll_url = "http://localhost:3000/api/getAll"
+                
+                fetch(getAll_url, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    }
+                })
+                .then(data => data.json()).then(data => {displayToDoList(data.data)})
+                .catch(err => alert(err))
+            }
+            
+            fetchData()
+
+            const add_form = document.querySelector('.add-form')
+            const to_do_list = document.querySelector('.to-do-list')
+
+            add_form.addEventListener('submit', addFormHandler)
+
+        </script>
     </body>
 </html>

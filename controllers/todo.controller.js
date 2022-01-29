@@ -86,8 +86,26 @@ exports.addTodo = (req, res) => {
  * @param __
  * @returns {Promise<void>}
  */
-exports.update = async(_, __) => {
-
+exports.update = async(req, res) => {
+    const id = req.body.id
+    const nama_matkul = req.body.nama_matkul
+    const nama_tugas = req.body.nama_tugas
+    const due_date = req.body.due_date
+    const updated_data = {
+        nama_matkul, nama_tugas, due_date
+    }
+    Todos.update(updated_data, {where: {id: id}})
+        .then(data => {
+            return res.status(200).send({
+                msg: "Data has been updated",
+                data: data
+            })
+        })
+        .catch(err => {
+            return res.status(500).send({
+                msg: err || "Fail to update data"
+            })
+        })
 }
 
 // todo implement authorization dengan JWT

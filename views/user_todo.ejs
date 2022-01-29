@@ -35,7 +35,7 @@
                 </form>
             </div>
             <div class="addbar">
-                <form action="" class="add-form">
+                <form class="add-form">
                     <input type="text" class="add-nama-tugas" placeholder="Nama Tugas" required>
                     <input type="text" class="add-nama-matkul" placeholder="Nama Mata Kuliah" required>
                     <input type="date" class="add-due-date" required>
@@ -116,7 +116,6 @@
 
                     const edit_form = document.createElement('form')
                     edit_form.classList.add('edit-form')
-                    edit_form.action = ''
 
                     const edit_nama_tugas = document.createElement('input')
                     edit_nama_tugas.classList.add('edit-nama-tugas')
@@ -189,8 +188,6 @@
                         nama_matkul: nama_matkul.value,
                         due_date: due_date.value + ' ' + due_time.value
                     }
-
-                    console.log(payload)
 
                     const target_url = "http://localhost:3000/api/update"
                     const header = new Headers({
@@ -334,8 +331,8 @@
 
             add_form.addEventListener('submit', addFormHandler)
             to_do_list.addEventListener('click', editToDo)
-            to_do_list.addEventListener('click', editFormHandler)
-            to_do_list.addEventListener('click', editFormClear)
+            to_do_list.addEventListener('click', editFormHandler) // GANTI JADI SUBMIT
+            to_do_list.addEventListener('click', editFormClear) // GANTI JADI SUBMIT
             to_do_list.addEventListener('click', deleteFormHandler)
 
             fetchData()

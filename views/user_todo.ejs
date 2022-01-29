@@ -219,7 +219,7 @@
 
                     const to_do_due_date = document.createElement('p')
                     to_do_due_date.classList.add('to-do-due-date')
-                    const datetime = new Date(payload.due_date)
+                    const datetime = new Date(payload.due_date) // String datetime tidak mengikuti ISO
                     to_do_due_date.textContent = datetime.toString()
                     to_do_div.appendChild(to_do_due_date)
 
@@ -235,6 +235,19 @@
 
                     to_do_element.removeChild(to_do_element.childNodes[0])
                     to_do_element.appendChild(to_do_div)
+                }
+            }
+
+            const editFormClear = (event) => {
+                event.preventDefault()
+
+                const item = event.target
+
+                if (item.classList[0] === 'edit-reset') {
+                    document.querySelector('.edit-nama-tugas').value = ''
+                    document.querySelector('.edit-nama-matkul').value = ''
+                    document.querySelector('.edit-due-date').value = ''
+                    document.querySelector('.edit-due-time').value = ''
                 }
             }
 
@@ -297,7 +310,7 @@
 
                 const to_do_due_date = document.createElement('p')
                 to_do_due_date.classList.add('to-do-due-date')
-                const datetime = new Date(to_do.due_date.replace("T", " ").replace(".000Z", ""))
+                const datetime = new Date(to_do.due_date.replace("T", " ").replace(".000Z", "")) // String datetime mungkin mengikuti ISO
                 to_do_due_date.textContent = datetime.toString()
                 to_do_div.appendChild(to_do_due_date)
 
@@ -322,6 +335,7 @@
             add_form.addEventListener('submit', addFormHandler)
             to_do_list.addEventListener('click', editToDo)
             to_do_list.addEventListener('click', editFormHandler)
+            to_do_list.addEventListener('click', editFormClear)
             to_do_list.addEventListener('click', deleteFormHandler)
 
             fetchData()

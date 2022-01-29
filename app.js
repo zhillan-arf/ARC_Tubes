@@ -52,6 +52,10 @@ app.get('/user_register', (req, res) => {
     res.render('user_register.ejs')
 })
 
+app.get('/user_todo', (req, res) => {
+    res.render('user_todo.ejs')
+})
+
 db.sequelize.sync({ force: true }).then(() => {
     console.log("Drop and re-sync db.")
 })

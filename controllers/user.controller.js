@@ -33,7 +33,7 @@ exports.register = async (req, res) => {
             })
         }
         User.create(user)
-        return res.redirect('/login')
+        return res.redirect('/user_login')
     } catch(err) {
         return res.status(500).send({
             msg: "Error while insert data"

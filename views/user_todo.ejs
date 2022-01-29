@@ -17,9 +17,9 @@
         <div class="container">
             <div class="navbar">
                 <form class="search-form" autocomplete="on">
-                    <input class="search-input" type="text" placeholder="Search To Do">
-                    <button class="search-button" type="submit">Search</button>
-                    <button class="clear-button" type="reset">Clear</button>
+                    <input type="text" class="search-input" placeholder="Search To Do">
+                    <button type="submit" class="search-submit">Search</button>
+                    <button type="reset" class="search-reset">Clear</button>
                 </form>
                 <form class="sort-form">
                     <label for="sort-select">Sort By</label>
@@ -35,12 +35,13 @@
                 </form>
             </div>
             <div class="addbar">
-                <form class="add-form">
-                    <input type="text" class="nama_tugas" name="nama_tugas" id="nama_tugas" placeholder="Nama Tugas">
-                    <input type="text" class="nama_matkul" name="nama_matkul" id="nama_matkul" placeholder="Nama Mata Kuliah">
-                    <input type="date" class="due_date" name="due_date" id="due_date">
-                    <input type="time" class="due_time" name="due_time" id="due_time">
-                    <button type="Submit">Tambah Tugas</button>
+                <form action="" class="add-form">
+                    <input type="text" class="add-nama-tugas" placeholder="Nama Tugas" required>
+                    <input type="text" class="add-nama-matkul" placeholder="Nama Mata Kuliah" required>
+                    <input type="date" class="add-due-date" required>
+                    <input type="time" class="add-due-time" required>
+                    <button type="submit" class="add-submit">Add</button>
+                    <button type="reset" class="add-reset">Cancel</button>
                 </form>
             </div>
             <div class="table">
@@ -73,10 +74,10 @@
             const addFormHandler = (event) => {
                 event.preventDefault()
 
-                const nama_tugas = document.querySelector('.nama_tugas')
-                const nama_matkul = document.querySelector('.nama_matkul')
-                const due_date = document.querySelector('.due_date')
-                const due_time = document.querySelector('.due_time')
+                const nama_tugas = document.querySelector('.add-nama-tugas')
+                const nama_matkul = document.querySelector('.add-nama-matkul')
+                const due_date = document.querySelector('.add-due-date')
+                const due_time = document.querySelector('.add-due-time')
 
                 const payload = {
                     nama_tugas: nama_tugas.value,
@@ -99,6 +100,142 @@
                 nama_matkul.value = ''
                 nama_tugas.value = ''
                 due_date.value = ''
+                due_time.value = ''
+            }
+
+            const editToDo = (event) => {
+                event.preventDefault()
+
+                const item = event.target
+
+                if (item.classList[0] === 'to-do-edit-button') {
+                    const to_do_element = item.parentElement.parentElement
+
+                    const edit_div = document.createElement('div')
+                    edit_div.classList.add('edit-to-do')
+
+                    const edit_form = document.createElement('form')
+                    edit_form.classList.add('edit-form')
+                    edit_form.action = ''
+
+                    const edit_nama_tugas = document.createElement('input')
+                    edit_nama_tugas.classList.add('edit-nama-tugas')
+                    edit_nama_tugas.type = 'text'
+                    edit_nama_tugas.placeholder = 'Nama Tugas'
+                    edit_nama_tugas.value = to_do_element.querySelector('.to-do-nama-tugas').textContent
+                    edit_nama_tugas.required = true
+                    edit_form.appendChild(edit_nama_tugas)
+
+                    const edit_nama_matkul = document.createElement('input')
+                    edit_nama_matkul.classList.add('edit-nama-matkul')
+                    edit_nama_matkul.type = 'text'
+                    edit_nama_matkul.placeholder = 'Nama Mata Kuliah'
+                    edit_nama_matkul.value = to_do_element.querySelector('.to-do-nama-matkul').textContent
+                    edit_nama_matkul.required = true
+                    edit_form.appendChild(edit_nama_matkul)
+
+                    const datetime = new Date(to_do_element.querySelector('.to-do-due-date').textContent)
+
+                    const edit_due_date = document.createElement('input')
+                    edit_due_date.classList.add('edit-due-date')
+                    edit_due_date.type = 'date'
+                    edit_due_date.value = `${datetime.getFullYear().toString().padStart(4, '0')}-${(datetime.getMonth() + 1).toString().padStart(2, '0')}-${datetime.getDate().toString().padStart(2, '0')}`
+                    edit_due_date.required = true
+                    edit_form.appendChild(edit_due_date)
+
+                    const edit_due_time = document.createElement('input')
+                    edit_due_time.classList.add('edit-due-time')
+                    edit_due_time.type = 'time'
+                    edit_due_time.value = `${datetime.getHours().toString().padStart(2, '0')}:${datetime.getMinutes().toString().padStart(2, '0')}`
+                    edit_due_time.required = true
+                    edit_form.appendChild(edit_due_time)
+
+                    const submit_button = document.createElement('button')
+                    submit_button.classList.add('edit-submit')
+                    submit_button.type = 'submit'
+                    submit_button.textContent = 'Done'
+                    edit_form.appendChild(submit_button)
+
+                    const reset_button = document.createElement('button')
+                    reset_button.classList.add('edit-reset')
+                    reset_button.type = 'reset'
+                    reset_button.textContent = 'Clear'
+                    edit_form.appendChild(reset_button)
+
+                    edit_div.appendChild(edit_form)
+
+                    to_do_element.removeChild(to_do_element.childNodes[0])
+                    to_do_element.appendChild(edit_div)
+                }
+            }
+
+            const editFormHandler = (event) => {
+                event.preventDefault()
+
+                const item = event.target
+
+                if (item.classList[0] === 'edit-submit') {
+                    const to_do_element = item.parentElement.parentElement.parentElement // edit-submit berada dalam form
+
+                    const id = parseInt(to_do_element.id)
+                    const nama_tugas = document.querySelector('.edit-nama-tugas')
+                    const nama_matkul = document.querySelector('.edit-nama-matkul')
+                    const due_date = document.querySelector('.edit-due-date')
+                    const due_time = document.querySelector('.edit-due-time')
+
+                    const payload = {
+                        id: id,
+                        nama_tugas: nama_tugas.value,
+                        nama_matkul: nama_matkul.value,
+                        due_date: due_date.value + ' ' + due_time.value
+                    }
+
+                    console.log(payload)
+
+                    const target_url = "http://localhost:3000/api/update"
+                    const header = new Headers({
+                        'Content-Type': 'application/json'
+                    })
+
+                    fetch(target_url, {
+                        method: 'PUT',
+                        headers: header,
+                        body: JSON.stringify(payload)
+                    })
+                    .then(data => data.json()).catch(err => {alert('fail');alert(err)})
+
+                    const to_do_div = document.createElement('div')
+                    to_do_div.classList.add('to-do-list')
+
+                    const to_do_nama_tugas = document.createElement('p')
+                    to_do_nama_tugas.classList.add('to-do-nama-tugas')
+                    to_do_nama_tugas.textContent = payload.nama_tugas
+                    to_do_div.appendChild(to_do_nama_tugas)
+
+                    const to_do_nama_matkul = document.createElement('p')
+                    to_do_nama_matkul.classList.add('to-do-nama-matkul')
+                    to_do_nama_matkul.textContent = payload.nama_matkul
+                    to_do_div.appendChild(to_do_nama_matkul)
+
+                    const to_do_due_date = document.createElement('p')
+                    to_do_due_date.classList.add('to-do-due-date')
+                    const datetime = new Date(payload.due_date)
+                    to_do_due_date.textContent = datetime.toString()
+                    to_do_div.appendChild(to_do_due_date)
+
+                    const to_do_edit_button = document.createElement('button')
+                    to_do_edit_button.classList.add('to-do-edit-button')
+                    to_do_edit_button.textContent = 'Edit'
+                    to_do_div.appendChild(to_do_edit_button)
+
+                    const to_do_delete_button = document.createElement('button')
+                    to_do_delete_button.classList.add('to-do-delete-button')
+                    to_do_delete_button.textContent = 'Delete'
+                    to_do_div.appendChild(to_do_delete_button)
+
+                    to_do_element.removeChild(to_do_element.childNodes[0])
+                    to_do_element.appendChild(to_do_div)
+                }
             }
 
             const deleteFormHandler = (event) => {
@@ -107,7 +244,9 @@
                 const item = event.target
 
                 if (item.classList[0] === 'to-do-delete-button') {
-                    const id = parseInt(item.parentElement.parentElement.id)
+                    const to_do_element = item.parentElement.parentElement
+
+                    const id = parseInt(to_do_element.id)
 
                     const payload = {
                         id: id
@@ -125,7 +264,7 @@
                     })
                     .then(data => data.json()).catch(err => {alert('fail');alert(err)})
 
-                    item.parentElement.parentElement.remove()
+                    to_do_element.remove()
                 }
             }
 
@@ -158,8 +297,8 @@
 
                 const to_do_due_date = document.createElement('p')
                 to_do_due_date.classList.add('to-do-due-date')
-                const datetime = new Date(to_do.due_date)
-                to_do_due_date.textContent = datetime.toLocaleString('id')
+                const datetime = new Date(to_do.due_date.replace("T", " ").replace(".000Z", ""))
+                to_do_due_date.textContent = datetime.toString()
                 to_do_div.appendChild(to_do_due_date)
 
                 const to_do_edit_button = document.createElement('button')
@@ -181,6 +320,8 @@
             const to_do_list = document.querySelector('.to-do-list')
 
             add_form.addEventListener('submit', addFormHandler)
+            to_do_list.addEventListener('click', editToDo)
+            to_do_list.addEventListener('click', editFormHandler)
             to_do_list.addEventListener('click', deleteFormHandler)
 
             fetchData()

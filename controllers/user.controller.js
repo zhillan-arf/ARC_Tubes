@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken')
 const passport = require('passport')
-
+const bcrypt = require('bcrypt')
 const User = require('../models').user
 
 exports.register = async (req, res) => {
@@ -19,7 +19,11 @@ exports.register = async (req, res) => {
         username,
         password
     }
+
     try {
+        const salt = await bcrypt.genSalt(10)
+        user.password = await bcrypt.hash(user.password, salt)
+
         const result = await User.findOne({
             where: { username }
         })

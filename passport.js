@@ -1,6 +1,7 @@
 const passport = require('passport')
 const LocalStrategy = require('passport-local')
 const passportJWT = require('passport-jwt')
+const bcrypt = require('bcrypt')
 const JWTStrategy   = passportJWT.Strategy
 const ExtractJWT = passportJWT.ExtractJwt
 
@@ -13,17 +14,27 @@ passport.use(new LocalStrategy({
     (username, password, callback) => {
         return User.findOne({
             where: {
-                username,
-                password
+                username
             }
         })
             .then(user => {
                 if(!user) {
                     return callback(null, false, {message: 'Incorrect Username or Password'})
                 }
-                return callback(null, user) // login success
+                bcrypt.compare(password, user.password)
+                    .then(ret => {
+                        if(ret) {
+                            return callback(null, user)
+                        }
+                        return callback(null, false, {message: 'Incorrect Username or Password'})
+                    })
+                    .catch(err => {
+                        return callback(null, false, {message: 'Incorrect Username or Password'})
+                    })
             })
-            .catch(err => callback(err))
+            .catch(err => {
+                return callback(null, false, {message: 'Incorrect Username or Password'})
+            })
     }
 ))
 

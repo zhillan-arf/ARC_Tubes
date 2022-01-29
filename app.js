@@ -52,6 +52,10 @@ app.get('/user_register', (req, res) => {
     res.render('user_register.ejs')
 })
 
+app.get('/user_login', (req, res) => {
+    res.render('user_login.ejs')
+})
+
 app.get('/user_todo', (req, res) => {
     res.render('user_todo.ejs')
 })

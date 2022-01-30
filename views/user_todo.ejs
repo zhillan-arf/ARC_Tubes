@@ -428,9 +428,24 @@
                 sort_select.value = ''
             }
 
+            const searchFormHandler = (event) => {
+                event.preventDefault()
+            }
+
+            const searchFormClear = (event) => {
+                event.preventDefault()
+
+                clearList()
+                fetchData(displayToDoList)
+
+                const search_form = document.querySelector('.search-input')
+                search_form.value = ''
+            }
+
             const add_form = document.querySelector('.add-form')
             const to_do_list = document.querySelector('.to-do-list')
             const sort_form = document.querySelector('.sort-form')
+            const search_form = document.querySelector('.search-form')
 
             add_form.addEventListener('submit', addFormHandler)
             to_do_list.addEventListener('click', editToDo)
@@ -439,6 +454,8 @@
             to_do_list.addEventListener('click', deleteFormHandler)
             sort_form.addEventListener('submit', sortFormHandler)
             sort_form.addEventListener('reset', sortFormClear)
+            search_form.addEventListener('submit', searchFormHandler)
+            search_form.addEventListener('reset', searchFormClear)
 
             fetchData(displayToDoList)
 

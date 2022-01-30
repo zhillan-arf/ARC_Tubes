@@ -58,7 +58,7 @@
                 if (parts.length === 2) return parts.pop().split(';').shift();
             }
 
-            const fetchData = () => {
+            const fetchData = (func) => {
                 const getAll_url = "http://localhost:3000/api/getAll"
                 
                 fetch(getAll_url, {
@@ -67,7 +67,7 @@
                         'Content-Type': 'application/json'
                     }
                 })
-                .then(data => data.json()).then(data => {displayToDoList(data.data)})
+                .then(data => data.json()).then(data => {func(data.data)})
                 .catch(err => alert(err))
             }
     
@@ -173,7 +173,7 @@
 
                 const item = event.target
 
-                if (item.classList[0] === 'edit-submit') {
+                if (item.classList[0] === 'edit-submit' && document.querySelector('.edit-nama-tugas').value !== '' && document.querySelector('.edit-nama-matkul').value !== '' && document.querySelector('.edit-due-date').value !== '' && document.querySelector('.edit-due-time').value !== '') {
                     const to_do_element = item.parentElement.parentElement.parentElement // edit-submit berada dalam form
 
                     const id = parseInt(to_do_element.id)
@@ -331,11 +331,11 @@
 
             add_form.addEventListener('submit', addFormHandler)
             to_do_list.addEventListener('click', editToDo)
-            to_do_list.addEventListener('click', editFormHandler) // GANTI JADI SUBMIT
-            to_do_list.addEventListener('click', editFormClear) // GANTI JADI SUBMIT
+            to_do_list.addEventListener('click', editFormHandler)
+            to_do_list.addEventListener('click', editFormClear)
             to_do_list.addEventListener('click', deleteFormHandler)
 
-            fetchData()
+            fetchData(displayToDoList)
 
         </script>
     </body>

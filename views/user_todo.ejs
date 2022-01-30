@@ -17,7 +17,7 @@
         <div class="container">
             <div class="navbar">
                 <form class="search-form" autocomplete="on">
-                    <input type="text" class="search-input" placeholder="Search To Do">
+                    <input type="text" class="search-input" placeholder="Search Tugas atau Mata Kuliah">
                     <button type="submit" class="search-submit">Search</button>
                     <button type="reset" class="search-reset">Clear</button>
                 </form>
@@ -51,6 +51,89 @@
                 </ul>
             </div>
         </div>
+
+        <script>
+            class Query {
+                constructor(sentence) {
+                    this.sentence = sentence
+                }
+
+                getSentence() {
+                    return this.sentence
+                }
+
+                getTermFrequency() {
+                    let wordVector = {}
+                    this.getSentence().split(" ").forEach((word) => {
+                        if (!(Object.keys(wordVector).includes(word))) {
+                            wordVector[word] = 1
+                        } else {
+                            wordVector[word]++
+                        }
+                    })
+                    return wordVector
+                }
+
+                getLength() {
+                    let result = 0
+                    Object.values(this.getTermFrequency()).forEach((freq) => {
+                        result += freq * freq
+                    })
+                    return Math.sqrt(result)
+                }
+            }
+
+            class Document {
+                constructor(paragraph) {
+                    this.paragraph = paragraph
+                }
+
+                getParagraph() {
+                    return this.paragraph
+                }
+
+                getTermFrequency() {
+                    let wordVector = {}
+                    this.getParagraph().split(" ").forEach((word) => {
+                        if (!(Object.keys(wordVector).includes(word))) {
+                            wordVector[word] = 1
+                        } else {
+                            wordVector[word]++
+                        }
+                    })
+                    return wordVector
+                }
+
+                getLength() {
+                    let result = 0
+                    Object.values(this.getTermFrequency()).forEach((freq) => {
+                        result += freq * freq
+                    })
+                    return Math.sqrt(result)
+                }
+
+                getSearchResult(Q) {
+                    let wordVector = {}
+                    Object.keys(Q.getTermFrequency()).forEach((word) => {
+                        wordVector[word] = this.getParagraph().split(word).length - 1
+                    })
+                    return wordVector
+                }
+            }
+
+            function sim(Q, D) {
+                const vectorQ = Q.getTermFrequency()
+                const vectorD = D.getSearchResult(Q)
+
+                let dotProduct = 0
+
+                for (const word in vectorQ) {
+                    dotProduct += vectorQ[word] * vectorD[word]
+                }
+                return (dotProduct) / (Q.getLength() * D.getLength())
+            }
+
+        </script>
 
         <script>
 
@@ -430,6 +513,26 @@
 
             const searchFormHandler = (event) => {
                 event.preventDefault()
+
+                const search_input = document.querySelector('.search-input')
+
+                if (search_input.value !== '') {
+                    clearList()
+                    fetchData((current_data) => {
+                        const Q = new Query(search_input.value)
+
+                        current_data.sort((to_do_1, to_do_2) => {
+                            const D1 = new Document(`${to_do_1.nama_tugas} ${to_do_1.nama_matkul}`)
+                            const D2 = new Document(`${to_do_2.nama_tugas} ${to_do_2.nama_matkul}`)
+
+                            return sim(Q, D2) - sim(Q, D1)
+                        })
+
+                        current_data = current_data.filter((to_do) => {const D = new Document(`${to_do.nama_tugas} ${to_do.nama_matkul}`);return sim(Q, D) > 0})
+
+                        displayToDoList(current_data)
+                    })
+                }
             }
 
             const searchFormClear = (event) => {
@@ -438,8 +541,8 @@
                 clearList()
                 fetchData(displayToDoList)
 
-                const search_form = document.querySelector('.search-input')
-                search_form.value = ''
+                const search_input = document.querySelector('.search-input')
+                search_input.value = ''
             }
 
             const add_form = document.querySelector('.add-form')

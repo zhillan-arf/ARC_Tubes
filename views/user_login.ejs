@@ -117,6 +117,7 @@
         const inputUser = document.querySelector("#username")
         const inputPass = document.querySelector("#password")
         const submitButton = document.querySelector(".btn-submit")
+        const loginForm = document.querySelector("#form")
 
         inputUser.addEventListener('input', isFormEmpty)
         inputPass.addEventListener('input', isFormEmpty)
@@ -128,6 +129,39 @@
                 submitButton.disabled = true
             }
         }
+
+        loginForm.addEventListener('submit', (event) => {
+            event.preventDefault()
+
+            const username = inputUser.value
+            const password = inputPass.value
+
+            const target_url = "http://localhost:3000/test_login"
+            const header = new Headers({
+                'Content-Type':'application/json'
+            })
+
+            const payload = {
+                username: username,
+                password: password
+            }
+
+            fetch(target_url, {
+                method: 'POST',
+                headers: header,
+                body: JSON.stringify(payload)
+            })
+            .then(data => data.json()).then(data => {
+                if (data.msg === 'Login Success') {
+                    location.href = 'http://localhost:3000/user_todo'
+                } else if (data.msg === 'Incorrect Username or Password'){
+                    alert(data.msg)
+                    inputUser.value = ''
+                    inputPass.value = ''
+                }
+            })
+            .catch(err => {alert('fail'); console.log(err)})
+        })
     </script>
 
 </body>

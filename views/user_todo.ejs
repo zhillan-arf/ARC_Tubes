@@ -24,7 +24,7 @@
                 <form class="sort-form">
                     <label for="sort-select">Sort By</label>
                     <select class="sort-select" id="sort-select">
-                        <option value="normal"> -- </option>
+                        <option value=""> -- </option>
                         <option value="nama_tugas_asc">Nama Tugas (Ascending)</option>
                         <option value="nama_tugas_desc">Nama Tugas (Descending)</option>
                         <option value="nama_matkul_asc">Nama Mata Kuliah (Ascending)</option>
@@ -97,12 +97,15 @@
                     headers: header,
                     body: JSON.stringify(payload)
                 })
-                .then(data => data.json()).then(data => displayData(data.data)).catch(err => {alert('fail');alert(err)})
+                .then(data => data.json()).then(() => {clearList();fetchData(displayToDoList)}).catch(err => {alert('fail');alert(err)})
 
                 nama_matkul.value = ''
                 nama_tugas.value = ''
                 due_date.value = ''
                 due_time.value = ''
+
+                const sort_select = document.querySelector('.sort-select')
+                sort_select.value = ''
             }
 
             const editToDo = (event) => {
@@ -338,6 +341,91 @@
 
             const sortFormHandler = (event) => {
                 event.preventDefault()
+
+                const sort_select = document.querySelector('.sort-select')
+
+                switch (sort_select.value) {
+                    case 'nama_tugas_asc':
+                        clearList()
+                        fetchData((current_data) => {
+                            current_data.sort((to_do_1, to_do_2) => {
+                                return to_do_1.nama_tugas.localeCompare(to_do_2.nama_tugas)
+                            })
+                            displayToDoList(current_data)
+                        })
+                        break
+
+                    case 'nama_tugas_desc':
+                        clearList()
+                        fetchData((current_data) => {
+                            current_data.sort((to_do_1, to_do_2) => {
+                                return to_do_2.nama_tugas.localeCompare(to_do_1.nama_tugas)
+                            })
+                            displayToDoList(current_data)
+                        })
+                        break
+
+                    case 'nama_matkul_asc':
+                        clearList()
+                        fetchData((current_data) => {
+                            current_data.sort((to_do_1, to_do_2) => {
+                                return to_do_1.nama_matkul.localeCompare(to_do_2.nama_matkul)
+                            })
+                            displayToDoList(current_data)
+                        })
+                        break
+
+                    case 'nama_matkul_desc':
+                        clearList()
+                        fetchData((current_data) => {
+                            current_data.sort((to_do_1, to_do_2) => {
+                                return to_do_2.nama_matkul.localeCompare(to_do_1.nama_matkul)
+                            })
+                            displayToDoList(current_data)
+                        })
+                        break
+
+                    case 'due_date_asc':
+                        clearList()
+                        fetchData((current_data) => {
+                            current_data.sort((to_do_1, to_do_2) => {
+                                const datetime_1 = new Date(to_do_1.due_date.replace("T", " ").replace(".000Z", "")) // String datetime mungkin mengikuti ISO
+                                const datetime_2 = new Date(to_do_2.due_date.replace("T", " ").replace(".000Z", "")) // String datetime mungkin mengikuti ISO
+
+                                return datetime_1.getTime() - datetime_2.getTime()
+                            })
+                            displayToDoList(current_data)
+                        })
+                        break
+
+                    case 'due_date_desc':
+                        clearList()
+                        fetchData((current_data) => {
+                            current_data.sort((to_do_1, to_do_2) => {
+                                const datetime_1 = new Date(to_do_1.due_date.replace("T", " ").replace(".000Z", "")) // String datetime mungkin mengikuti ISO
+                                const datetime_2 = new Date(to_do_2.due_date.replace("T", " ").replace(".000Z", "")) // String datetime mungkin mengikuti ISO
+
+                                return datetime_2.getTime() - datetime_1.getTime()
+                            })
+                            displayToDoList(current_data)
+                        })
+                        break
+
+                    default:
+                        clearList()
+                        fetchData(displayToDoList)
+                        break
+                }
+            }
+
+            const sortFormClear = (event) => {
+                event.preventDefault()
+
+                clearList()
+                fetchData(displayToDoList)
+
+                const sort_select = document.querySelector('.sort-select')
+                sort_select.value = ''
             }
 
             const add_form = document.querySelector('.add-form')
@@ -350,6 +438,7 @@
             to_do_list.addEventListener('click', editFormClear)
             to_do_list.addEventListener('click', deleteFormHandler)
             sort_form.addEventListener('submit', sortFormHandler)
+            sort_form.addEventListener('reset', sortFormClear)
 
             fetchData(displayToDoList)
 

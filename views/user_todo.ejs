@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <title>To Do List</title>
-        <link rel="icon" href="/images/dummy_logo.png">
+        <link rel="icon" href="/images/tdl.png">
         <style>
 
         </style>
@@ -32,6 +32,8 @@
                         <option value="due_date_asc">Due Date (Ascending)</option>
                         <option value="due_date_desc">Due Date (Descending)</option>
                     </select>
+                    <button type="submit" class="sort-submit">Sort</button>
+                    <button type="reset" class="sort-reset">Clear</button>
                 </form>
             </div>
             <div class="addbar">
@@ -326,14 +328,28 @@
                 to_do_list.appendChild(to_do_element)
             }
 
+            const clearList = () => {
+                const to_do_list = document.querySelector('.to-do-list')
+
+                while (to_do_list.firstChild) {
+                    to_do_list.firstChild.remove()
+                }
+            }
+
+            const sortFormHandler = (event) => {
+                event.preventDefault()
+            }
+
             const add_form = document.querySelector('.add-form')
             const to_do_list = document.querySelector('.to-do-list')
+            const sort_form = document.querySelector('.sort-form')
 
             add_form.addEventListener('submit', addFormHandler)
             to_do_list.addEventListener('click', editToDo)
             to_do_list.addEventListener('click', editFormHandler)
             to_do_list.addEventListener('click', editFormClear)
             to_do_list.addEventListener('click', deleteFormHandler)
+            sort_form.addEventListener('submit', sortFormHandler)
 
             fetchData(displayToDoList)
 

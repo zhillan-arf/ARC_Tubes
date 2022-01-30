@@ -80,3 +80,26 @@ exports.test_login = (req, res) => {
     })(req, res)
 }
 
+exports.check_username = (req, res) => {
+    const username = req.body.username
+    User.findOne({
+        where: { username }
+    })
+        .then(data => {
+            if(data !== null) {
+                return res.status(200).send({
+                    msg: "Username already exist"
+                })
+            }
+            return res.status(200).send({
+                msg: "Username did not exist"
+            })
+        })
+        .catch(err => {
+            return res.status(500).send({
+                msg: "Error while trying check the username"
+            })
+        })
+}
+
+

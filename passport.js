@@ -24,7 +24,7 @@ passport.use(new LocalStrategy({
                 bcrypt.compare(password, user.password)
                     .then(ret => {
                         if(ret) {
-                            return callback(null, user)
+                            return callback(null, user, {message: "Login Success"})
                         }
                         return callback(null, false, {message: 'Incorrect Username or Password'})
                     })

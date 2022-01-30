@@ -8,7 +8,8 @@ const {
 } = require('../controllers/todo.controller')
 const {
     register,
-    login
+    login,
+    test_login
 } = require('../controllers/user.controller')
 require('../passport')
 
@@ -20,5 +21,6 @@ router.put('/api/update', update)
 
 router.post('/register', register)
 router.post('/login', login)
+router.post('/test_login', test_login)
 
 module.exports = router

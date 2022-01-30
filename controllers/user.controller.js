@@ -43,7 +43,6 @@ exports.register = async (req, res) => {
 
 exports.login = (req, res) => {
     passport.authenticate('local', {session: false}, (err, user, info) => {
-
         if(err || !user) {
             return res.status(400).json({
                 msg: info.message || "Something is wrong",
@@ -60,5 +59,24 @@ exports.login = (req, res) => {
         })
     })(req, res)
 
+}
+
+exports.test_login = (req, res) => {
+    passport.authenticate('local', {session: false}, (err, user, info) => {
+        if(err || !user) {
+            return res.status(400).json({
+                msg: info.message || "Something is wrong",
+            })
+        }
+        req.login(user, {session: false}, (err) => {
+            if(err) {
+                return res.send(err)
+            }
+
+            return res.status(200).send({
+                msg: info.message
+            })
+        })
+    })(req, res)
 }
 

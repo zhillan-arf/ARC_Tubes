@@ -103,14 +103,14 @@
         <div class="container">
             <div class="search-sort-bar">
                 <form class="search-form" autocomplete="on">
-                    <input type="text" class="search-input" placeholder="Search To Do">
+                    <input type="text" class="search-input" placeholder="Search Tugas atau Mata Kuliah">
                     <button type="submit" class="search-submit">Search</button>
                     <button type="reset" class="search-reset">Clear</button>
                 </form>
                 <form class="sort-form">
                     <label for="sort-select">Sort By</label>
                     <select class="sort-select" id="sort-select">
-                        <option value="normal"> -- </option>
+                        <option value=""> -- </option>
                         <option value="nama_tugas_asc">Nama Tugas (Ascending)</option>
                         <option value="nama_tugas_desc">Nama Tugas (Descending)</option>
                         <option value="nama_matkul_asc">Nama Mata Kuliah (Ascending)</option>
@@ -148,6 +148,89 @@
                 </ul>
             </div>
         </div>
+
+        <script>
+            class Query {
+                constructor(sentence) {
+                    this.sentence = sentence
+                }
+
+                getSentence() {
+                    return this.sentence
+                }
+
+                getTermFrequency() {
+                    let wordVector = {}
+                    this.getSentence().split(" ").forEach((word) => {
+                        if (!(Object.keys(wordVector).includes(word))) {
+                            wordVector[word] = 1
+                        } else {
+                            wordVector[word]++
+                        }
+                    })
+                    return wordVector
+                }
+
+                getLength() {
+                    let result = 0
+                    Object.values(this.getTermFrequency()).forEach((freq) => {
+                        result += freq * freq
+                    })
+                    return Math.sqrt(result)
+                }
+            }
+
+            class Document {
+                constructor(paragraph) {
+                    this.paragraph = paragraph
+                }
+
+                getParagraph() {
+                    return this.paragraph
+                }
+
+                getTermFrequency() {
+                    let wordVector = {}
+                    this.getParagraph().split(" ").forEach((word) => {
+                        if (!(Object.keys(wordVector).includes(word))) {
+                            wordVector[word] = 1
+                        } else {
+                            wordVector[word]++
+                        }
+                    })
+                    return wordVector
+                }
+
+                getLength() {
+                    let result = 0
+                    Object.values(this.getTermFrequency()).forEach((freq) => {
+                        result += freq * freq
+                    })
+                    return Math.sqrt(result)
+                }
+
+                getSearchResult(Q) {
+                    let wordVector = {}
+                    Object.keys(Q.getTermFrequency()).forEach((word) => {
+                        wordVector[word] = this.getParagraph().split(word).length - 1
+                    })
+                    return wordVector
+                }
+            }
+
+            function sim(Q, D) {
+                const vectorQ = Q.getTermFrequency()
+                const vectorD = D.getSearchResult(Q)
+
+                let dotProduct = 0
+
+                for (const word in vectorQ) {
+                    dotProduct += vectorQ[word] * vectorD[word]
+                }
+                return (dotProduct) / (Q.getLength() * D.getLength())
+            }
+
+        </script>
 
         <script>
 
@@ -194,12 +277,15 @@
                     headers: header,
                     body: JSON.stringify(payload)
                 })
-                .then(data => data.json()).then(data => displayData(data.data)).catch(err => {alert('fail');alert(err)})
+                .then(data => data.json()).then(() => {clearList();fetchData(displayToDoList)}).catch(err => {alert('fail');alert(err)})
 
                 nama_matkul.value = ''
                 nama_tugas.value = ''
                 due_date.value = ''
                 due_time.value = ''
+
+                const sort_select = document.querySelector('.sort-select')
+                sort_select.value = ''
             }
 
             const editToDo = (event) => {
@@ -435,11 +521,131 @@
 
             const sortFormHandler = (event) => {
                 event.preventDefault()
+
+                const sort_select = document.querySelector('.sort-select')
+
+                switch (sort_select.value) {
+                    case 'nama_tugas_asc':
+                        clearList()
+                        fetchData((current_data) => {
+                            current_data.sort((to_do_1, to_do_2) => {
+                                return to_do_1.nama_tugas.localeCompare(to_do_2.nama_tugas)
+                            })
+                            displayToDoList(current_data)
+                        })
+                        break
+
+                    case 'nama_tugas_desc':
+                        clearList()
+                        fetchData((current_data) => {
+                            current_data.sort((to_do_1, to_do_2) => {
+                                return to_do_2.nama_tugas.localeCompare(to_do_1.nama_tugas)
+                            })
+                            displayToDoList(current_data)
+                        })
+                        break
+
+                    case 'nama_matkul_asc':
+                        clearList()
+                        fetchData((current_data) => {
+                            current_data.sort((to_do_1, to_do_2) => {
+                                return to_do_1.nama_matkul.localeCompare(to_do_2.nama_matkul)
+                            })
+                            displayToDoList(current_data)
+                        })
+                        break
+
+                    case 'nama_matkul_desc':
+                        clearList()
+                        fetchData((current_data) => {
+                            current_data.sort((to_do_1, to_do_2) => {
+                                return to_do_2.nama_matkul.localeCompare(to_do_1.nama_matkul)
+                            })
+                            displayToDoList(current_data)
+                        })
+                        break
+
+                    case 'due_date_asc':
+                        clearList()
+                        fetchData((current_data) => {
+                            current_data.sort((to_do_1, to_do_2) => {
+                                const datetime_1 = new Date(to_do_1.due_date.replace("T", " ").replace(".000Z", "")) // String datetime mungkin mengikuti ISO
+                                const datetime_2 = new Date(to_do_2.due_date.replace("T", " ").replace(".000Z", "")) // String datetime mungkin mengikuti ISO
+
+                                return datetime_1.getTime() - datetime_2.getTime()
+                            })
+                            displayToDoList(current_data)
+                        })
+                        break
+
+                    case 'due_date_desc':
+                        clearList()
+                        fetchData((current_data) => {
+                            current_data.sort((to_do_1, to_do_2) => {
+                                const datetime_1 = new Date(to_do_1.due_date.replace("T", " ").replace(".000Z", "")) // String datetime mungkin mengikuti ISO
+                                const datetime_2 = new Date(to_do_2.due_date.replace("T", " ").replace(".000Z", "")) // String datetime mungkin mengikuti ISO
+
+                                return datetime_2.getTime() - datetime_1.getTime()
+                            })
+                            displayToDoList(current_data)
+                        })
+                        break
+
+                    default:
+                        clearList()
+                        fetchData(displayToDoList)
+                        break
+                }
+            }
+
+            const sortFormClear = (event) => {
+                event.preventDefault()
+
+                clearList()
+                fetchData(displayToDoList)
+
+                const sort_select = document.querySelector('.sort-select')
+                sort_select.value = ''
+            }
+
+            const searchFormHandler = (event) => {
+                event.preventDefault()
+
+                const search_input = document.querySelector('.search-input')
+
+                if (search_input.value !== '') {
+                    clearList()
+                    fetchData((current_data) => {
+                        const Q = new Query(search_input.value)
+
+                        current_data.sort((to_do_1, to_do_2) => {
+                            const D1 = new Document(`${to_do_1.nama_tugas} ${to_do_1.nama_matkul}`)
+                            const D2 = new Document(`${to_do_2.nama_tugas} ${to_do_2.nama_matkul}`)
+
+                            return sim(Q, D2) - sim(Q, D1)
+                        })
+
+                        current_data = current_data.filter((to_do) => {const D = new Document(`${to_do.nama_tugas} ${to_do.nama_matkul}`);return sim(Q, D) > 0})
+
+                        displayToDoList(current_data)
+                    })
+                }
+            }
+
+            const searchFormClear = (event) => {
+                event.preventDefault()
+
+                clearList()
+                fetchData(displayToDoList)
+
+                const search_input = document.querySelector('.search-input')
+                search_input.value = ''
             }
 
             const add_form = document.querySelector('.add-form')
             const to_do_list = document.querySelector('.to-do-list')
             const sort_form = document.querySelector('.sort-form')
+            const search_form = document.querySelector('.search-form')
 
             add_form.addEventListener('submit', addFormHandler)
             to_do_list.addEventListener('click', editToDo)
@@ -447,6 +653,9 @@
             to_do_list.addEventListener('click', editFormClear)
             to_do_list.addEventListener('click', deleteFormHandler)
             sort_form.addEventListener('submit', sortFormHandler)
+            sort_form.addEventListener('reset', sortFormClear)
+            search_form.addEventListener('submit', searchFormHandler)
+            search_form.addEventListener('reset', searchFormClear)
 
             fetchData(displayToDoList)
 

@@ -124,6 +124,7 @@
         const inputUser = document.querySelector("#username")
         const inputPass = document.querySelector("#password")
         const submitButton = document.querySelector(".btn-submit")
+        const registerForm = document.querySelector("#form")
 
         inputNama.addEventListener('input', isFormEmpty)
         inputUser.addEventListener('input', isFormEmpty)
@@ -135,6 +136,63 @@
             } else {
                 submitButton.disabled = true
             }
+        }
+
+        registerForm.addEventListener('submit', (event) => {
+            event.preventDefault()
+
+            userRegister()
+            checkUser()
+        })
+
+        function userRegister() {
+            const name = inputNama.value
+            const username = inputNama.value
+            const password = inputPass.value
+
+            const target_url = "http://localhost:3000/register"
+            const header = new Headers({
+                'Content-Type':'application/json'
+            })
+
+            const payload = { 
+                name: name,
+                username: username,
+                password: password 
+            }
+
+            fetch(target_url, {
+                method: 'POST',
+                headers: header,
+                body: JSON.stringify(payload)
+            })
+            .then(data => data.json()).then(data => {console.log(data)})
+            .catch(err => {alert('fail'); console.log(err)})
+        }
+
+        function checkUser() {
+            const username = inputUser.value
+            const target_url = "http://localhost:3000/check_username"
+            const header = new Headers({
+                'Content-Type':'application/json'
+            })
+
+            const payload = { username: username }
+
+            fetch(target_url, {
+                method: 'POST',
+                headers: header,
+                body: JSON.stringify(payload)
+            })
+            .then(data => data.json()).then(data => {
+                if (data.msg === 'Username did not exist') {
+                    location.href = 'http://localhost:3000/user_login'
+                } else if (data.msg === 'Username already exist') {
+                    alert(data.msg)
+                    inputUser.value = ''
+                }
+            })
+            .catch(err => console.log(err))
         }
     </script>
 

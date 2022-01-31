@@ -8,6 +8,7 @@ Sebuah website menyimpan tugas-tugas akademik dengan fitur sorting, search, regi
 13520155 Jundan Harris:
 
 18120039 Ishlah Muhammadi:
+    - Bertanggung jawab mengurusi bagian Front-End dari laman Register
 
 18220008 Zhillan Attarizal Rezyarifin: Graphic UI to-do list, tambahan UI login, landing, dan register
 
@@ -15,7 +16,8 @@ Sebuah website menyimpan tugas-tugas akademik dengan fitur sorting, search, regi
 
 13220022 Muhammad Zaky Hermawan:
 
-13520065 Rayhan Kinan Muhammad: Membuat HTML serta JavaScript DOM serta membuat algoritma searching dan sorting pada to-do list
+13520065 Rayhan Kinan Muhammad: 
+    - Membuat HTML serta JavaScript DOM serta membuat algoritma searching dan sorting pada to-do list
 
 ### SCREENSHOT APLIKASI
 ![Landing page](https://i.imgur.com/6X3SCfm.png)

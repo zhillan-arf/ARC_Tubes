@@ -92,18 +92,6 @@
             margin-bottom: 3px;
         }
 
-        .ask-user {
-            display: flex;
-            margin-top: 3%;
-            margin-bottom: 8%;
-            justify-content: center;
-            color: black;
-        }
-
-        .ask-user:hover {
-            color: black;
-        }
-
         /* footer */
         .site-footer
         {
@@ -275,10 +263,26 @@
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light shadow p-3 mb-5 bg-body rounded sticky-top">
         <div class="container-fluid">
-          <a class="navbar-brand" href="http://localhost:3000" style = "font-size: 25px ; color: #F2789F; padding-left: 2vw;">To Do List</a>
+          <a class="navbar-brand" href="#" style = "font-size: 25px ; color: #F2789F; padding-left: 2vw;">To Do List</a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
+          <div class="collapse navbar-collapse" id="navbarNav" style="padding-right: 2vw;">
+            <ul class="navbar-nav ms-auto">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="#">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/user_login">Login</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/user_register">Register</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/#aboutus">About Us</a>
+              </li>
+            </ul>
+          </div>
         </div>
       </nav>
 
@@ -313,8 +317,7 @@
                             <button type="submit" class="btn-submit" disabled>Register</button>
                         </div>
                     </li>
-                </ul>
-                <a class="ask-user" href="/user_login">Already have any accounts?</a>     
+                </ul>     
             </form>
         </div>
     </div>

@@ -9,7 +9,7 @@ Sebuah website menyimpan tugas-tugas akademik dengan fitur sorting, search, regi
 
 18120039 Ishlah Muhammadi:
 
-18220008 Zhillan Attarizal Rezyarifin:
+18220008 Zhillan Attarizal Rezyarifin: Graphic UI to-do list, tambahan UI login, landing, dan register
 
 18120036 Nadif Aulia Putra:
 
@@ -18,3 +18,6 @@ Sebuah website menyimpan tugas-tugas akademik dengan fitur sorting, search, regi
 13520065 Rayhan Kinan Muhammad:
 
 ### SCREENSHOT APLIKASI
+![Landing page](https://i.imgur.com/6X3SCfm.png)
+![Login page](https://i.imgur.com/0ISk9rr.png)
+![Tasks page](https://i.imgur.com/xoV152S.png)

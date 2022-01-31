@@ -27,19 +27,51 @@
             }
 
             .search-form {
-                padding-bottom : 40px;
+                padding-top: 15px;
+                padding-bottom : 15px;
+                margin-left: 15px;
             }
 
-            .search-input, .add-nama-tugas {
+            .search-form input {
+                padding-left: 7px;
+                padding-right: 3px;
+                padding-top: 3px;
+                padding-bottom: 3px;
+                border: none;
+                border-radius: 10px;
+                background-color: #eee;
+                color: grey;
+            }
+
+            button {
+                padding-left: 6px;
+                padding-right: 6px;
+                border: none;
+                background: none;
+                color: gray;
+            }
+
+            button:hover {
+                color: black;
+            }
+
+            .search-input, .sort-select, .add-nama-tugas, .edit-nama-tugas {
                 width : 30vw;
             }
 
             .sort-form {
                 padding-bottom: 15px;
+                margin-left: 15px;
             }
 
-            .sort-select {
-                width : 27.4vw;
+            .sort-form select {
+                background-color: #eee;
+                border: none;
+                color: gray;
+                padding-left: 3px;
+                padding-top: 3px;
+                padding-bottom: 3px;
+                border-radius: 10px;
             }
 
             .add-form {
@@ -47,17 +79,45 @@
                 display: flex;
                 justify-content: space-between;
                 padding-bottom: 20px;
+                padding-top: 20px;
+                padding-left: 6px;
+                padding-right: 6px;
             }
 
-            .add-form input, .add-form button, .to-do-nama-tugas, .to-do-nama-matkul, .to-do-due-sate, .to-do-edit-button {
+            .add-form input, .edit-form input {
                 margin-right: 10px;
+                margin-left: 6px;
+                padding-left: 7px;
+                padding-right: 3px;
+                border: none;
+                background-color: #eee;
+                color: gray;
+                border-radius: 10px;
             }
 
-            .add-nama-matkul {
+            .to-do-nama-tugas {
+                margin-right: 10px;
+                margin-left: 6px;
+                padding-left: 3px;
+                padding-right: 3px;
+                color: gray;
+                font-weight: 600;
+            }
+
+            .to-do-nama-matkul, .to-do-due-date {
+                margin-right: 10px;
+                margin-left: 6px;
+                padding-left: 3px;
+                padding-right: 3px;
+                color: gray;
+            }
+
+            .add-nama-matkul, .edit-nama-matkul {
                 width: 15vw;
             }
 
-            .add-submit, .to-do-edit-button {
+
+            .add-submit, .to-do-edit-button, .edit-submit {
                 margin-left: auto;
             }
 
@@ -65,9 +125,187 @@
                 list-style: none;
             }
 
-            .to-do-div {
+            .to-do-list li, .search-sort-bar, .addbar {
+                background-color: white;
+                margin-top: 10px;
+                margin-bottom: 10px;
+                border-radius: 15px;
+                box-shadow: 3px 3px 6px #fcb2cb;
+            }
+
+            .to-do-div, .edit-form {
                 display: flex;
                 justify-content: space-between;
+            }
+
+            .to-do-div p {
+                padding-right: 10px;
+            }
+
+
+            /* footer */
+            .site-footer
+            {
+            background-color:#26272b;
+            padding:45px 0 20px;
+            font-size:15px;
+            line-height:24px;
+            color:#737373;
+            }
+            .site-footer hr
+            {
+            border-top-color:#bbb;
+            opacity:0.5
+            }
+            .site-footer hr.small
+            {
+            margin:20px 0
+            }
+            .site-footer h6
+            {
+            color:#fff;
+            font-size:16px;
+            text-transform:uppercase;
+            margin-top:5px;
+            letter-spacing:2px
+            }
+            .site-footer a
+            {
+            color:#737373;
+            }
+            .site-footer a:hover
+            {
+            color:#3366cc;
+            text-decoration:none;
+            }
+            .footer-links
+            {
+            padding-left:0;
+            list-style:none
+            }
+            .footer-links li
+            {
+            display:block
+            }
+            .footer-links a
+            {
+            color:#737373
+            }
+            .footer-links a:active,.footer-links a:focus,.footer-links a:hover
+            {
+            color:#3366cc;
+            text-decoration:none;
+            }
+            .footer-links.inline li
+            {
+            display:inline-block
+            }
+            .site-footer .social-icons
+            {
+            text-align:right
+            }
+            .site-footer .social-icons a
+            {
+            width:40px;
+            height:40px;
+            line-height:40px;
+            margin-left:6px;
+            margin-right:0;
+            border-radius:100%;
+            background-color:#33353d
+            }
+            .copyright-text
+            {
+            margin:0
+            }
+            @media (max-width:991px)
+            {
+            .site-footer [class^=col-]
+            {
+                margin-bottom:30px
+            }
+            }
+            @media (max-width:767px)
+            {
+            .site-footer
+            {
+                padding-bottom:0
+            }
+            .site-footer .copyright-text,.site-footer .social-icons
+            {
+                text-align:center
+            }
+            }
+            .social-icons
+            {
+            padding-left:0;
+            margin-bottom:0;
+            list-style:none
+            }
+            .social-icons li
+            {
+            display:inline-block;
+            margin-bottom:4px
+            }
+            .social-icons li.title
+            {
+            margin-right:15px;
+            text-transform:uppercase;
+            color:#96a2b2;
+            font-weight:700;
+            font-size:13px
+            }
+            .social-icons a{
+            background-color:#eceeef;
+            color:#818a91;
+            font-size:16px;
+            display:inline-block;
+            line-height:44px;
+            width:44px;
+            height:44px;
+            text-align:center;
+            margin-right:8px;
+            border-radius:100%;
+            -webkit-transition:all .2s linear;
+            -o-transition:all .2s linear;
+            transition:all .2s linear
+            }
+            .social-icons a:active,.social-icons a:focus,.social-icons a:hover
+            {
+            color:#fff;
+            background-color:#29aafe
+            }
+            .social-icons.size-sm a
+            {
+            line-height:34px;
+            height:34px;
+            width:34px;
+            font-size:14px
+            }
+            .social-icons a.facebook:hover
+            {
+            background-color:#3b5998
+            }
+            .social-icons a.twitter:hover
+            {
+            background-color:#00aced
+            }
+            .social-icons a.linkedin:hover
+            {
+            background-color:#007bb6
+            }
+            .social-icons a.dribbble:hover
+            {
+            background-color:#ea4c89
+            }
+            @media (max-width:767px)
+            {
+            .social-icons li.title
+            {
+                display:block;
+                margin-right:0;
+                font-weight:600
+            }
             }
 
         </style>
@@ -101,16 +339,16 @@
 
         <!-- Container -->
         <div class="container">
+            <h4>Manage tasks</h3>
             <div class="search-sort-bar">
                 <form class="search-form" autocomplete="on">
                     <input type="text" class="search-input" placeholder="Search Tugas atau Mata Kuliah">
-                    <button type="submit" class="search-submit">Search</button>
+                    <button type="submit" class="search-submit">Enter</button>
                     <button type="reset" class="search-reset">Clear</button>
                 </form>
                 <form class="sort-form">
-                    <label for="sort-select">Sort By</label>
                     <select class="sort-select" id="sort-select">
-                        <option value=""> -- </option>
+                        <option value="">Sort by</option>
                         <option value="nama_tugas_asc">Nama Tugas (Ascending)</option>
                         <option value="nama_tugas_desc">Nama Tugas (Descending)</option>
                         <option value="nama_matkul_asc">Nama Mata Kuliah (Ascending)</option>
@@ -118,27 +356,29 @@
                         <option value="due_date_asc">Due Date (Ascending)</option>
                         <option value="due_date_desc">Due Date (Descending)</option>
                     </select>
-                    <button type="submit" class="sort-submit">Sort</button>
+                    <button type="submit" class="sort-submit">Enter</button>
                     <button type="reset" class="sort-reset">Clear</button>
                 </form>
             </div>
+            <h4>New task</h4>
             <div class="addbar">
                 <form class="add-form">
                     <input type="text" class="add-nama-tugas" placeholder="Nama Tugas" required>
-                    <input type="text" class="add-nama-matkul" placeholder="Nama Mata Kuliah" required>
+                    <input type="text" class="add-nama-matkul" placeholder="Mata Kuliah" required>
                     <input type="date" class="add-due-date" required>
                     <input type="time" class="add-due-time" required>
                     <button type="submit" class="add-submit">Add</button>
                     <button type="reset" class="add-reset">Cancel</button>
                 </form>
             </div>
+            <h4>Current tasks</h3>
             <div class="table">
                 <ul class="to-do-list">
                 <!-- Isi 1 buah to-do
                     <li id="A1">
                         <div class=to-do-div>
                             <p class="to-do-nama-tugas">Tugas 1 Menyalakan LED</p>
-                            <p class="to-do-nama-matkul">II2260 Sistem Embedded</p>
+                            <p class="to-do-nama-matkul">II2260</p>
                             <p class="to-do-due-date">Sat Feb 12 2022 01:05:00 GMT+0700 (Western Indonesia Time)</p>
                             <button class="to-do-edit-button">Edit</button>
                             <button class="to-do-delete-button">Delete</button>
@@ -148,6 +388,47 @@
                 </ul>
             </div>
         </div>
+
+        <br><br><br><br><br><br><br>
+
+        <!-- Site footer -->
+        <footer class="site-footer" id="aboutus">
+            <div class="container">
+            <div class="row">
+                <div class="col-sm-12 col-md-6">
+                <h6>About</h6>
+                <p class="text-justify">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                </div>
+    
+    
+                <div class="col-xs-6 col-md-3">
+                <h6>us</h6>
+                <ul class="footer-links">
+                    <li><a href="https://github.com/rayhankinan" target="_blank">Rahyan Kinan Muhannad</a></li>
+                    <li><a href="https://github.com/ZakyHermawan" target="_blank">Muhammad Zaky Hermawan</a></li>
+                    <li><a href="https://github.com/jundanha" target="_blank">Jundan Haris</a></li>
+                    <li><a href="https://github.com/slehmadi" target="_blank">Ishlah Muhammadi</a></li>
+                    <li><a href="https://github.com/zhillan-arf" target="_blank">Zhillan Attarizal Reyzarifin</a></li>
+                    <li><a href="https://github.com/nad-if" target="_blank">Nadif Aulia Putra</a></li>
+                </ul>
+                </div>
+            </div>
+            <hr>
+            </div>
+            <div class="container">
+            <div class="row">
+                <div class="col-md-8 col-sm-6 col-xs-12">
+                <p class="copyright-text">Copyright &copy; 2022 All Rights Reserved by 
+            Kelompok 1 ARC.
+                </p>
+                </div>
+    
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                
+                </div>
+            </div>
+            </div>
+    </footer>
 
         <script>
             class Query {

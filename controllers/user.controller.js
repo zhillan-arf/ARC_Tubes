@@ -33,7 +33,7 @@ exports.register = async (req, res) => {
             })
         }
         User.create(user)
-        return res.redirect('/user_login')
+        return res.redirect('/login')
     } catch(err) {
         return res.status(500).send({
             msg: "Error while insert data"
@@ -55,7 +55,7 @@ exports.login = (req, res) => {
 
             const token = jwt.sign(user.toJSON(), process.env.JWT_SECRET, {expiresIn: '20m'})
             res.cookie('token', token)
-            res.redirect('/tugas')
+            res.redirect('/todo')
         })
     })(req, res)
 

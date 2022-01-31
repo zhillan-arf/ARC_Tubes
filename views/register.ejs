@@ -4,8 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Login</title>
+    <link rel="icon" href="/images/tdl.png">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <title>Register</title>
     <style>
         * {
             font-family: sans-serif;
@@ -17,7 +18,7 @@
             background-color: #FEE3EC;
         }
 
-        .login-container {
+        .regis-container {
             margin-top: 18vh;
             display: flex;
             justify-content: center;
@@ -33,14 +34,14 @@
         }
         
         header {
-            margin: 15px;
+            margin-top: 15px;
         }
         
         h1 {
             text-align: center;
         }
 
-        .login-form {
+        .register-form {
             list-style: none;
             margin-top: 5%;
             width: 100%;
@@ -259,24 +260,23 @@
     </style>
 </head>
 <body>
-
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light shadow p-3 mb-5 bg-body rounded sticky-top">
         <div class="container-fluid">
-          <a class="navbar-brand" href="#" style = "font-size: 25px ; color: #F2789F; padding-left: 2vw;">To Do List</a>
+          <a class="navbar-brand" href="/" style = "font-size: 25px ; color: #F2789F; padding-left: 2vw;">To Do List</a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarNav" style="padding-right: 2vw;">
             <ul class="navbar-nav ms-auto">
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">Home</a>
+                <a class="nav-link active" aria-current="page" href="/">Home</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="/user_login">Login</a>
+                <a class="nav-link" href="/login">Login</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="/user_register">Register</a>
+                <a class="nav-link" href="/register">Register</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="/#aboutus">About Us</a>
@@ -286,14 +286,20 @@
         </div>
       </nav>
 
-    <div class="login-container">
+    <div class="regis-container">
         <div class="card">
             <header>
-                <h1>Login Form</h1>
+                <h1>Register Form</h1>
             </header>
 
-            <form action="/login" id="form" method="POST">
-                <ul class="login-form">
+            <form action="/register" id="form" method="POST">
+                <ul class="register-form">
+                    <li>
+                        <div class="input-form">
+                            <p class="input-desc"><span>*</span>Nama Lengkap</p>
+                            <input type="text" name="name" id="name">
+                        </div>
+                    </li>
                     <li>
                         <div class="input-form">
                             <p class="input-desc"><span>*</span>Username</p>
@@ -308,7 +314,7 @@
                     </li>
                     <li>
                         <div class="input-form">
-                            <button type="submit" class="btn-submit" disabled>Login</button>
+                            <button type="submit" class="btn-submit" disabled>Register</button>
                         </div>
                     </li>
                 </ul>     
@@ -318,84 +324,93 @@
 
     <br><br><br><br><br><br><br>
 
-    <!-- Site footer -->
-    <footer class="site-footer" id="aboutus">
-        <div class="container">
-        <div class="row">
-            <div class="col-sm-12 col-md-6">
-            <h6>About</h6>
-            <p class="text-justify">From the moment 
-                I understood the weakness of my flesh, 
-                it disgusted me. I craved the strength 
-                and certainty of steel. I aspired to the 
-                purity of the blessed machine. Your kind cling 
-                to your flesh as if it will not decay and fail 
-                you. One day the crude biomass you call a temple 
-                will wither and you will beg my kind to save you.
-                But I am already saved. For the Machine is Immortal.</p>
+        <!-- Site footer -->
+        <footer class="site-footer" id="aboutus">
+            <div class="container">
+            <div class="row">
+                <div class="col-sm-12 col-md-6">
+                <h6>About</h6>
+                <p class="text-justify">From the moment 
+                    I understood the weakness of my flesh, 
+                    it disgusted me. I craved the strength 
+                    and certainty of steel. I aspired to the 
+                    purity of the blessed machine. Your kind cling 
+                    to your flesh as if it will not decay and fail 
+                    you. One day the crude biomass you call a temple 
+                    will wither and you will beg my kind to save you.
+                    But I am already saved. For the Machine is Immortal.</p>
+                </div>
+    
+    
+                <div class="col-xs-6 col-md-3">
+                <h6>us</h6>
+                <ul class="footer-links">
+                    <li><a href="https://github.com/rayhankinan" target="_blank">13520065 kin</a></li>
+                    <li><a href="https://github.com/ZakyHermawan" target="_blank">13220022 buzzword</a></li>
+                    <li><a href="https://github.com/jundanha" target="_blank">13520155 junn</a></li>
+                    <li><a href="https://github.com/slehmadi" target="_blank">18120039 slehmadi</a></li>
+                    <li><a href="https://github.com/zhillan-arf" target="_blank">18220008 dialah_zhillanku</a></li>
+                    <li><a href="https://github.com/nad-if" target="_blank">18120036 Zeave</a></li>
+                </ul>
+                </div>
             </div>
-
-
-            <div class="col-xs-6 col-md-3">
-            <h6>us</h6>
-            <ul class="footer-links">
-                <li><a href="https://github.com/rayhankinan" target="_blank">13520065 kin</a></li>
-                <li><a href="https://github.com/ZakyHermawan" target="_blank">13220022 buzzword</a></li>
-                <li><a href="https://github.com/jundanha" target="_blank">13520155 junn</a></li>
-                <li><a href="https://github.com/slehmadi" target="_blank">18120039 slehmadi</a></li>
-                <li><a href="https://github.com/zhillan-arf" target="_blank">18220008 dialah_zhillanku</a></li>
-                <li><a href="https://github.com/nad-if" target="_blank">18120036 Zeave</a></li>
-            </ul>
+            <hr>
             </div>
-        </div>
-        <hr>
-        </div>
-        <div class="container">
-        <div class="row">
-            <div class="col-md-8 col-sm-6 col-xs-12">
-            <p class="copyright-text">Copyright &copy; 2022 All Rights Reserved by 
-        Kelompok 1 ARC.
-            </p>
+            <div class="container">
+            <div class="row">
+                <div class="col-md-8 col-sm-6 col-xs-12">
+                <p class="copyright-text">Copyright &copy; 2022 All Rights Reserved by 
+            Kelompok 1 ARC.
+                </p>
+                </div>
+    
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                
+                </div>
             </div>
-
-            <div class="col-md-4 col-sm-6 col-xs-12">
-            
             </div>
-        </div>
-        </div>
     </footer>
     
     <script>
+        const inputNama = document.querySelector("#name")
         const inputUser = document.querySelector("#username")
         const inputPass = document.querySelector("#password")
         const submitButton = document.querySelector(".btn-submit")
-        const loginForm = document.querySelector("#form")
+        const registerForm = document.querySelector("#form")
 
+        inputNama.addEventListener('input', isFormEmpty)
         inputUser.addEventListener('input', isFormEmpty)
         inputPass.addEventListener('input', isFormEmpty)
 
         function isFormEmpty() {
-            if (inputUser.value.trim() && inputPass.value.trim()) {
+            if (inputNama.value.trim() && inputUser.value.trim() && inputPass.value.trim()) {
                 submitButton.disabled = false
             } else {
                 submitButton.disabled = true
             }
         }
 
-        loginForm.addEventListener('submit', (event) => {
+        registerForm.addEventListener('submit', (event) => {
             event.preventDefault()
 
-            const username = inputUser.value
+            userRegister()
+            checkUser()
+        })
+
+        function userRegister() {
+            const name = inputNama.value
+            const username = inputNama.value
             const password = inputPass.value
 
-            const target_url = "http://localhost:3000/test_login"
+            const target_url = "http://localhost:3000/register"
             const header = new Headers({
                 'Content-Type':'application/json'
             })
 
-            const payload = {
+            const payload = { 
+                name: name,
                 username: username,
-                password: password
+                password: password 
             }
 
             fetch(target_url, {
@@ -403,17 +418,34 @@
                 headers: header,
                 body: JSON.stringify(payload)
             })
+            .then(data => data.json()).then(data => {console.log(data)})
+            .catch(err => {alert('fail'); console.log(err)})
+        }
+
+        function checkUser() {
+            const username = inputUser.value
+            const target_url = "http://localhost:3000/check_username"
+            const header = new Headers({
+                'Content-Type':'application/json'
+            })
+
+            const payload = { username: username }
+
+            fetch(target_url, {
+                method: 'POST',
+                headers: header,
+                body: JSON.stringify(payload)
+            })
             .then(data => data.json()).then(data => {
-                if (data.msg === 'Login Success') {
-                    location.href = 'http://localhost:3000/user_todo'
-                } else if (data.msg === 'Incorrect Username or Password'){
+                if (data.msg === 'Username did not exist') {
+                    location.href = 'http://localhost:3000/login'
+                } else if (data.msg === 'Username already exist') {
                     alert(data.msg)
                     inputUser.value = ''
-                    inputPass.value = ''
                 }
             })
-            .catch(err => {alert('fail'); console.log(err)})
-        })
+            .catch(err => console.log(err))
+        }
     </script>
 
 </body>

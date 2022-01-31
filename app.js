@@ -39,25 +39,13 @@ app.get('/', (req, res) => {
     res.render('landing_page.ejs')
 })
 app.get('/login', (req, res) => {
-    res.render('example_login.ejs')
+    res.render('login.ejs')
 })
 app.get('/register', (req, res) => {
-    res.render('example_register.ejs')
+    res.render('register.ejs')
 })
-app.get('/tugas', (req, res) => {
-    res.render('example_todo.ejs')
-})
-
-app.get('/user_register', (req, res) => {
-    res.render('user_register.ejs')
-})
-
-app.get('/user_login', (req, res) => {
-    res.render('user_login.ejs')
-})
-
-app.get('/user_todo', (req, res) => {
-    res.render('user_todo.ejs')
+app.get('/todo', (req, res) => {
+    res.render('todo.ejs')
 })
 
 db.sequelize.sync({ force: true }).then(() => {

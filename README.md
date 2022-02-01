@@ -6,7 +6,7 @@ Sebuah website menyimpan tugas-tugas akademik dengan fitur sorting, search, regi
 
 ### PEMBAGIAN TUGAS
 13520155 Jundan Harris:
-
+ - membuat navbar, footer, dan halaman awal (landing page) 
 
 18120039 Ishlah Muhammadi:
  - Bertanggung jawab mengurusi bagian Front-End dari laman Register

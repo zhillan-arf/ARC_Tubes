@@ -2,8 +2,6 @@
 ### DESKRIPSI
 Sebuah website menyimpan tugas-tugas akademik dengan fitur sorting, search, register, dan login
 
-### CARA MENJALANKAN APLIKASI
-
 ### PEMBAGIAN TUGAS
 13520155 Jundan Harris:
  - membuat navbar, footer, dan halaman awal (landing page) 
@@ -17,10 +15,11 @@ Sebuah website menyimpan tugas-tugas akademik dengan fitur sorting, search, regi
 
 
 18120036 Nadif Aulia Putra:
+ - Graphic UI
 
 
 13220022 Muhammad Zaky Hermawan:
-
+ - Backend dan deployment
 
 13520065 Rayhan Kinan Muhammad: 
  - Membuat HTML serta JavaScript DOM serta membuat algoritma searching dan sorting pada to-do list

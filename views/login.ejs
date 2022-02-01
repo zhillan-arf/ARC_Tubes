@@ -66,21 +66,13 @@
             padding-left: 5px;
         }
 
-        .btn-submit:disabled {
-            /*background-color: red;
-            color: darkred;*/
+        .btn-submit {
             margin-top: 15%;
             padding: 5px 8px;
             opacity: 60%;
             border-radius: 16px;
         }
 
-        .btn-submit:enabled {
-            margin-top: 15%;
-            padding: 5px 8px;
-            border-radius: 16px;
-        }
-    
         span {
             text-align: left;
             color: red;
@@ -297,18 +289,18 @@
                     <li>
                         <div class="input-form">
                             <p class="input-desc"><span>*</span>Username</p>
-                            <input type="text" name="username" id="username">
+                            <input type="text" name="username" id="username" required>
                         </div>
                     </li>
                     <li>
                         <div class="input-form">
                             <p class="input-desc"><span>*</span>Password</p>
-                            <input type="password" name="password" id="password">
+                            <input type="password" name="password" id="password" required>
                         </div>
                     </li>
                     <li>
                         <div class="input-form">
-                            <button type="submit" class="btn-submit" disabled>Login</button>
+                            <button type="submit" class="btn-submit">Login</button>
                         </div>
                     </li>
                 </ul>     
@@ -366,27 +358,13 @@
     </footer>
     
     <script>
-        const inputUser = document.querySelector("#username")
-        const inputPass = document.querySelector("#password")
-        const submitButton = document.querySelector(".btn-submit")
         const loginForm = document.querySelector("#form")
-
-        inputUser.addEventListener('input', isFormEmpty)
-        inputPass.addEventListener('input', isFormEmpty)
-
-        function isFormEmpty() {
-            if (inputUser.value.trim() && inputPass.value.trim()) {
-                submitButton.disabled = false
-            } else {
-                submitButton.disabled = true
-            }
-        }
 
         loginForm.addEventListener('submit', (event) => {
             event.preventDefault()
 
-            const username = inputUser.value
-            const password = inputPass.value
+            const username = document.querySelector("#username").value
+            const password = document.querySelector("#password").value
 
             const target_url = "http://localhost:3000/test_login"
             const header = new Headers({
@@ -408,11 +386,11 @@
                     location.href = 'http://localhost:3000/todo'
                 } else if (data.msg === 'Incorrect Username or Password'){
                     alert(data.msg)
-                    inputUser.value = ''
-                    inputPass.value = ''
+                    document.querySelector("#username").value = ''
+                    document.querySelector("#password").value = ''
                 }
             })
-            .catch(err => {alert('fail'); console.log(err)})
+            .catch(err => {console.log(err)})
         })
     </script>
 
